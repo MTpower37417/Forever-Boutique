@@ -29,4 +29,4 @@ RUN mkdir -p data logs customer_data
 RUN chmod -R 755 /app
 
 # Run Bot
-CMD ["python", "core/fashion_bot.py"] 
+CMD ["python", "demo_app.py"] 
