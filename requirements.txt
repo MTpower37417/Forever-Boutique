@@ -20,4 +20,5 @@ typing-extensions>=4.7.1
 fastapi>=0.68.0
 uvicorn>=0.15.0
 httpx>=0.24.0
-python-multipart>=0.0.5 
+python-multipart>=0.0.5 jinja2>=3.0.0
+python-multipart>=0.0.5
