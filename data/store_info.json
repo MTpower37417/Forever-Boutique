@@ -1,0 +1,116 @@
+{
+  "name": "Forever Siam Fashion Boutique",
+  "description": "Luxury fashion boutique specializing in evening wear and special occasion dresses",
+  "location": {
+    "address": {
+      "street": "Block28x สามย่าน วังใหม่ ซอย จุฬาลงกรณ์ 5",
+      "district": "วังใหม่",
+      "city": "Bangkok",
+      "postal_code": "10330",
+      "country": "Thailand"
+    },
+    "coordinates": {
+      "latitude": 13.7527,
+      "longitude": 100.5397
+    },
+    "transportation": {
+      "bts": {
+        "station": "สยาม",
+        "exit": "Exit 4",
+        "walking_time": "10 minutes"
+      },
+      "mrt": {
+        "station": "สามย่าน",
+        "exit": "Exit 1",
+        "walking_time": "5 minutes"
+      },
+      "parking": {
+        "available": true,
+        "type": "สามย่าน Parking",
+        "description": "มีที่จอดรถของสามย่านที่สามารถใช้บริการได้ค่ะ",
+        "hours": "10:00 AM - 8:00 PM"
+      }
+    }
+  },
+  "hours": {
+    "weekday": {
+      "monday": "10:00 AM - 8:00 PM",
+      "tuesday": "10:00 AM - 8:00 PM",
+      "wednesday": "10:00 AM - 8:00 PM",
+      "thursday": "10:00 AM - 8:00 PM",
+      "friday": "10:00 AM - 8:00 PM",
+      "saturday": "10:00 AM - 8:00 PM",
+      "sunday": "11:00 AM - 7:00 PM"
+    },
+    "holidays": {
+      "new_year": "Closed",
+      "songkran": "Closed",
+      "christmas": "11:00 AM - 5:00 PM"
+    }
+  },
+  "contact": {
+    "phone": {
+      "main": "082 919 7199",
+      "whatsapp": "082 919 7199"
+    },
+    "email": {
+      "general": "info@foreversiam.com",
+      "appointments": "appointments@foreversiam.com",
+      "support": "support@foreversiam.com"
+    },
+    "social_media": {
+      "facebook": "https://facebook.com/foreversiam",
+      "instagram": "https://instagram.com/foreversiam",
+      "line": "@foreversiam",
+      "dress_samples": "สามารถดูตัวอย่างชุดได้ที่ https://www.facebook.com/foreversiam หรือเข้ามาดูชุดที่ร้านได้เลยค่ะ"
+    }
+  },
+  "services": {
+    "fitting": {
+      "available": true,
+      "duration": "45 minutes",
+      "booking_advance": "24 hours",
+      "max_party_size": 4
+    },
+    "alterations": {
+      "available": true,
+      "turnaround": "3-5 business days",
+      "basic_included": true,
+      "complex_charges": "Based on work required"
+    },
+    "delivery": {
+      "local": {
+        "free_threshold": 10000,
+        "delivery_time": "1-2 business days"
+      },
+      "nationwide": {
+        "available": true,
+        "fee": "Based on location",
+        "delivery_time": "2-4 business days"
+      },
+      "international": {
+        "available": true,
+        "restrictions": "Select items only",
+        "delivery_time": "5-7 business days"
+      }
+    }
+  },
+  "payment": {
+    "methods": [
+      "Cash",
+      "Credit Card",
+      "Bank Transfer",
+      "Installment"
+    ],
+    "credit_cards": [
+      "Visa",
+      "MasterCard",
+      "American Express"
+    ],
+    "installment": {
+      "available": true,
+      "minimum_amount": 15000,
+      "terms": "3-12 months"
+    }
+  }
+} 

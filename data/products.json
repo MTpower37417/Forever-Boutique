@@ -1,0 +1,100 @@
+{
+  "categories": {
+    "evening_wear": {
+      "name": "Evening Wear",
+      "description": "Elegant evening dresses for special occasions",
+      "products": [
+        {
+          "id": "EW001",
+          "name": "Crystal Embellished Gown",
+          "description": "Floor-length gown with crystal embellishments, perfect for formal events",
+          "price_range": {
+            "min": 25000,
+            "max": 35000
+          },
+          "sizes": ["XS", "S", "M", "L", "XL"],
+          "colors": ["Black", "Navy", "Burgundy"],
+          "occasions": ["Wedding", "Gala", "Formal Dinner"],
+          "care_instructions": "Dry clean only. Store in garment bag.",
+          "image_url": "images/evening/crystal_gown.jpg",
+          "in_stock": true
+        },
+        {
+          "id": "EW002",
+          "name": "Silk Chiffon Maxi",
+          "description": "Flowing silk chiffon maxi dress with delicate beading",
+          "price_range": {
+            "min": 18000,
+            "max": 25000
+          },
+          "sizes": ["XS", "S", "M", "L"],
+          "colors": ["Blush", "Ivory", "Emerald"],
+          "occasions": ["Cocktail Party", "Wedding Guest", "Anniversary"],
+          "care_instructions": "Hand wash cold. Lay flat to dry.",
+          "image_url": "images/evening/silk_chiffon.jpg",
+          "in_stock": true
+        }
+      ]
+    },
+    "cocktail_dresses": {
+      "name": "Cocktail Dresses",
+      "description": "Stylish cocktail dresses for semi-formal events",
+      "products": [
+        {
+          "id": "CD001",
+          "name": "Lace Trimmed Cocktail",
+          "description": "Classic cocktail dress with lace trim and flattering silhouette",
+          "price_range": {
+            "min": 12000,
+            "max": 18000
+          },
+          "sizes": ["XS", "S", "M", "L", "XL"],
+          "colors": ["Black", "Red", "Navy"],
+          "occasions": ["Cocktail Party", "Business Dinner", "Date Night"],
+          "care_instructions": "Dry clean recommended.",
+          "image_url": "images/cocktail/lace_trim.jpg",
+          "in_stock": true
+        }
+      ]
+    },
+    "bridesmaid_dresses": {
+      "name": "Bridesmaid Dresses",
+      "description": "Elegant bridesmaid dresses in various styles and colors",
+      "products": [
+        {
+          "id": "BD001",
+          "name": "A-Line Bridesmaid",
+          "description": "Flattering A-line bridesmaid dress with adjustable straps",
+          "price_range": {
+            "min": 8000,
+            "max": 12000
+          },
+          "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+          "colors": ["Blush", "Dusty Blue", "Sage", "Burgundy"],
+          "occasions": ["Wedding", "Formal Event"],
+          "care_instructions": "Dry clean only.",
+          "image_url": "images/bridesmaid/aline_dress.jpg",
+          "in_stock": true
+        }
+      ]
+    }
+  },
+  "accessories": {
+    "name": "Accessories",
+    "description": "Complementary accessories for your outfit",
+    "products": [
+      {
+        "id": "ACC001",
+        "name": "Crystal Evening Clutch",
+        "description": "Elegant crystal-embellished evening clutch",
+        "price_range": {
+          "min": 3500,
+          "max": 4500
+        },
+        "colors": ["Silver", "Gold", "Black"],
+        "image_url": "images/accessories/crystal_clutch.jpg",
+        "in_stock": true
+      }
+    ]
+  }
+} 

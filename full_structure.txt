@@ -1,0 +1,78 @@
+.
+ |  DEMO_GUIDE.md
+ |  DEPLOYMENT.md
+ |  Dockerfile
+ |  Procfile
+ |  README.md
+ |  analytics
+ |   |  __pycache__
+ |   |   |  metrics_tracker.cpython-311.pyc
+ |   |  metrics_tracker.py
+ |  chatbot.log
+ |  config.env
+ |  core
+ |   |  __init__.py
+ |   |  __pycache__
+ |   |   |  __init__.cpython-311.pyc
+ |   |   |  business_logic.cpython-311.pyc
+ |   |   |  chatbot_handler.cpython-311.pyc
+ |   |   |  message_processor.cpython-311.pyc
+ |   |  api
+ |   |   |  api_client.py
+ |   |   |  webhook_handler.py
+ |   |  auth
+ |   |   |  security_manager.py
+ |   |  booking_system.py
+ |   |  business_logic.py
+ |   |  business_logic.py.backup
+ |   |  business_logic.py.bak
+ |   |  chatbot_handler.py
+ |   |  customer_management.py
+ |   |  customer_segmentation.py
+ |   |  fashion_bot.py
+ |   |  handlers
+ |   |   |  customer_follow_up.py
+ |   |  message_processor.py
+ |   |  monitoring
+ |   |   |  error_handler.py
+ |   |   |  performance_monitor.py
+ |   |  product_recommender.py
+ |   |  size_advisor.py
+ |   |  storage
+ |   |   |  database_manager.py
+ |  data
+ |   |  customer_data.json
+ |   |  faqs.json
+ |   |  products.json
+ |   |  size_guide.json
+ |   |  store_info.json
+ |  demo_app.py
+ |  demo_render.yaml
+ |  folder_structure.txt
+ |  full_structure.txt
+ |  image
+ |   |  chatbot_app.png
+ |  integrations
+ |   |  facebook_messenger.py
+ |   |  lead_capture.py
+ |   |  response_templates.py
+ |  main.py
+ |  organize_project.py
+ |  render.yaml
+ |  requirements.txt
+ |  run_bot.py
+ |  start.sh
+ |  templates
+ |   |  index.html
+ |   |  index.html.backup
+ |  tests
+ |   |  __init__.py
+ |   |  run_tests.py
+ |   |  test_business_logic.py
+ |   |  test_chatbot.py
+ |   |  test_config.py
+ |   |  test_facebook_integration.py
+ |   |  test_main.py
+ |   |  test_message_processor.py
+ |  utils
+ |   |  logger.py

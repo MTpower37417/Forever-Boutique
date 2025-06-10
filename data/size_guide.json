@@ -1,0 +1,128 @@
+{
+  "size_chart": {
+    "measurements": {
+      "bust": "Measure around the fullest part of your bust",
+      "waist": "Measure around your natural waistline",
+      "hips": "Measure around the fullest part of your hips",
+      "height": "Measure from top of head to floor"
+    },
+    "sizes": {
+      "XS": {
+        "bust": "32-33 inches (81-84 cm)",
+        "waist": "24-25 inches (61-64 cm)",
+        "hips": "34-35 inches (86-89 cm)",
+        "height": "5'0\"-5'3\" (152-160 cm)"
+      },
+      "S": {
+        "bust": "34-35 inches (86-89 cm)",
+        "waist": "26-27 inches (66-69 cm)",
+        "hips": "36-37 inches (91-94 cm)",
+        "height": "5'2\"-5'5\" (157-165 cm)"
+      },
+      "M": {
+        "bust": "36-37 inches (91-94 cm)",
+        "waist": "28-29 inches (71-74 cm)",
+        "hips": "38-39 inches (97-99 cm)",
+        "height": "5'4\"-5'7\" (163-170 cm)"
+      },
+      "L": {
+        "bust": "38-39 inches (97-99 cm)",
+        "waist": "30-31 inches (76-79 cm)",
+        "hips": "40-41 inches (102-104 cm)",
+        "height": "5'6\"-5'9\" (168-175 cm)"
+      },
+      "XL": {
+        "bust": "40-41 inches (102-104 cm)",
+        "waist": "32-33 inches (81-84 cm)",
+        "hips": "42-43 inches (107-109 cm)",
+        "height": "5'8\"-5'11\" (173-180 cm)"
+      },
+      "XXL": {
+        "bust": "42-43 inches (107-109 cm)",
+        "waist": "34-35 inches (86-89 cm)",
+        "hips": "44-45 inches (112-114 cm)",
+        "height": "5'10\"-6'1\" (178-185 cm)"
+      }
+    }
+  },
+  "fitting_tips": {
+    "general": [
+      "Measure yourself in your undergarments",
+      "Stand straight with feet together",
+      "Keep the measuring tape snug but not tight",
+      "Measure at the widest point for each area"
+    ],
+    "bust": [
+      "Wear your usual bra",
+      "Measure around the fullest part",
+      "Keep the tape parallel to the floor"
+    ],
+    "waist": [
+      "Find your natural waistline",
+      "Usually 1-2 inches above your belly button",
+      "Keep the tape parallel to the floor"
+    ],
+    "hips": [
+      "Measure around the fullest part",
+      "Usually 7-9 inches below your waist",
+      "Keep the tape parallel to the floor"
+    ]
+  },
+  "style_guidance": {
+    "body_types": {
+      "hourglass": {
+        "description": "Balanced bust and hips with defined waist",
+        "recommended_styles": [
+          "A-line dresses",
+          "Wrap dresses",
+          "Fitted bodices with full skirts"
+        ]
+      },
+      "pear": {
+        "description": "Hips wider than bust",
+        "recommended_styles": [
+          "A-line dresses",
+          "Empire waist",
+          "Full skirts"
+        ]
+      },
+      "apple": {
+        "description": "Wider midsection",
+        "recommended_styles": [
+          "Empire waist",
+          "A-line dresses",
+          "V-necklines"
+        ]
+      },
+      "rectangle": {
+        "description": "Straight figure with minimal curves",
+        "recommended_styles": [
+          "Belted dresses",
+          "Ruffled details",
+          "Peplum styles"
+        ]
+      }
+    }
+  },
+  "alteration_guidelines": {
+    "common_alterations": {
+      "hem": {
+        "max_adjustment": "4 inches",
+        "turnaround": "2-3 days"
+      },
+      "waist": {
+        "max_adjustment": "2 inches",
+        "turnaround": "3-4 days"
+      },
+      "straps": {
+        "max_adjustment": "2 inches",
+        "turnaround": "1-2 days"
+      }
+    },
+    "limitations": [
+      "Cannot alter more than 2 sizes up or down",
+      "Complex beading may limit alteration options",
+      "Some styles cannot be altered due to design"
+    ]
+  }
+} 

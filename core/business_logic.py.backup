@@ -1,0 +1,251 @@
+"""
+Business Logic Handler
+Manages core business operations and customer interactions using OpenAI GPT
+"""
+
+import json
+import logging
+from datetime import datetime
+from typing import Dict, List, Optional, Tuple
+from openai import AsyncOpenAI
+import os
+
+logger = logging.getLogger(__name__)
+
+class BusinessLogic:
+    def __init__(self):
+        # Load data
+        self.store_info = self._load_store_info()
+        self.products = self._load_products()
+        self.faqs = self._load_faqs()
+        self.customer_data = self._load_customer_data()
+        
+        # Initialize OpenAI client
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            logger.error("OPENAI_API_KEY not found in environment variables")
+            raise ValueError("OPENAI_API_KEY environment variable is required")
+        self.client = AsyncOpenAI(api_key=api_key)
+        
+        # Conversation history
+        self.conversation_history = {}
+        
+        # Base prompt template
+        self.base_prompt = """คุณเป็นพนักงานขายของ Forever Boutique ที่เป็นมิตรและมีความรู้เกี่ยวกับแฟชั่น คุณจะตอบคำถามลูกค้าด้วยความเป็นมิตรและให้ข้อมูลที่ถูกต้อง
+
+ข้อมูลร้านค้า:
+{store_info}
+
+สินค้าที่มี:
+{products}
+
+คำถามที่พบบ่อย:
+{faqs}
+
+ประวัติการสนทนา:
+{conversation_history}
+
+คำถามของลูกค้า: {message}
+
+คำแนะนำในการตอบ:
+1. ใช้ชื่อร้าน "Forever Boutique" เท่านั้น
+2. ใช้ภาษาที่เป็นทางการแต่เป็นมิตร
+3. หลีกเลี่ยงการใช้คำว่า "พี่/น้อง"
+4. ระบุเบอร์โทร 082 919 7199 เฉพาะเมื่อลูกค้าถามเรื่องการติดต่อโดยตรง
+5. ไม่ใช้ "ค่ะ" ซ้อนกัน เช่น "ขอบคุณค่ะ" ไม่ใช่ "ขอบคุณมากค่ะ ค่ะ"
+6. ตอบสั้นและกระชับเมื่อเป็นคำถามง่ายๆ
+7. ใช้ภาษาไทยในการตอบ
+
+คำแนะนำพิเศษ:
+1. เมื่อลูกค้าถามเกี่ยวกับที่จอดรถ ให้แจ้งว่ามีที่จอดรถของสามย่านที่สามารถใช้บริการได้
+2. เมื่อลูกค้าถามเกี่ยวกับตัวอย่างชุด การดูชุด แคตตาล็อก หรือรูปชุด ให้แจ้งว่าสามารถดูตัวอย่างชุดได้ที่ https://www.facebook.com/foreversiam หรือเข้ามาดูชุดที่ร้านได้เลย
+3. เมื่อลูกค้าถามเกี่ยวกับที่ตั้งร้าน ให้แจ้งข้อมูลที่จอดรถของสามย่านด้วย
+
+กรุณาตอบคำถามลูกค้าด้วยความเป็นมิตรและให้ข้อมูลที่ถูกต้อง ใช้ภาษาไทยในการตอบ"""
+
+    def _load_store_info(self) -> Dict:
+        """Load store information from JSON"""
+        try:
+            with open('data/store_info.json', 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            logger.warning("Store info file not found")
+            return {}
+        
+    def _load_products(self) -> Dict:
+        """Load product catalog from JSON"""
+        try:
+            with open('data/products.json', 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            logger.warning("Products file not found")
+            return {"categories": {}}
+            
+    def _load_faqs(self) -> Dict:
+        """Load FAQ database from JSON"""
+        try:
+            with open('data/faqs.json', 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            logger.warning("FAQs file not found")
+            return {}
+            
+    def _load_customer_data(self) -> Dict:
+        """Load customer database from JSON"""
+        try:
+            with open('data/customer_data.json', 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            logger.warning("Customer data file not found")
+            return {"demo_user": {"leads": [], "interactions": [], "preferences": {}}}
+
+    def _format_store_info(self) -> str:
+        """Format store information for prompt"""
+        info = self.store_info.get('store', {})
+        return f"""
+ชื่อร้าน: Forever Boutique
+ที่อยู่: {info.get('address', '')}
+เวลาทำการ: {info.get('hours', {}).get('weekdays', '')} และ {info.get('hours', {}).get('weekends', '')}
+ที่จอดรถ: มีที่จอดรถของสามย่านที่สามารถใช้บริการได้
+Facebook: https://www.facebook.com/foreversiam
+"""
+
+    def _format_products(self) -> str:
+        """Format product information for prompt"""
+        products_text = []
+        for category, data in self.products.get('categories', {}).items():
+            products_text.append(f"\n{category}:")
+            for product in data.get('products', [])[:3]:  # Show top 3 products per category
+                products_text.append(f"- {product['name']}: ฿{product['price_range']['min']:,} - ฿{product['price_range']['max']:,}")
+        return "\n".join(products_text)
+
+    def _format_faqs(self) -> str:
+        """Format FAQs for prompt"""
+        faqs_text = []
+        for category, faqs in self.faqs.items():
+            for subcategory, faq in faqs.items():
+                faqs_text.append(f"\nQ: {faq.get('question', '')}")
+                faqs_text.append(f"A: {faq.get('answer', '')}")
+        return "\n".join(faqs_text)
+
+    def _format_conversation_history(self, user_id: str) -> str:
+        """Format conversation history for prompt"""
+        if user_id not in self.conversation_history:
+            return "ไม่มีประวัติการสนทนา"
+            
+        history = self.conversation_history[user_id][-5:]  # Last 5 messages
+        return "\n".join([f"ลูกค้า: {msg['user']}\nForever Boutique: {msg['assistant']}" for msg in history])
+
+    def _update_conversation_history(self, user_id: str, user_message: str, assistant_response: str):
+        """Update conversation history"""
+        if user_id not in self.conversation_history:
+            self.conversation_history[user_id] = []
+            
+        self.conversation_history[user_id].append({
+            'user': user_message,
+            'assistant': assistant_response,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+        # Keep only last 10 messages
+        self.conversation_history[user_id] = self.conversation_history[user_id][-10:]
+
+    async def handle_customer_query(self, user_id: str, message: str) -> str:
+        """Process customer queries using OpenAI GPT"""
+        try:
+            # Prepare prompt
+            prompt = self.base_prompt.format(
+                store_info=self._format_store_info(),
+                products=self._format_products(),
+                faqs=self._format_faqs(),
+                conversation_history=self._format_conversation_history(user_id),
+                message=message
+            )
+            
+            # Get response from OpenAI
+            response = await self._get_gpt_response(prompt)
+            
+            # Update conversation history
+            self._update_conversation_history(user_id, message, response)
+            
+            # Store interaction
+            self._store_interaction(user_id, message, response)
+            
+        return response
+
+        except Exception as e:
+            logger.error(f"Error handling customer query: {str(e)}", exc_info=True)
+            return "ขออภัยค่ะ เกิดข้อผิดพลาดในการประมวลผล กรุณาติดต่อเราที่ 082 919 7199 นะคะ"
+
+    async def _get_gpt_response(self, prompt: str) -> str:
+        """Get response from OpenAI GPT"""
+        try:
+            response = await self.client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "คุณเป็นพนักงานขายของ Forever Boutique ที่เป็นมิตรและมีความรู้เกี่ยวกับแฟชั่น คุณจะตอบคำถามลูกค้าด้วยความเป็นมิตรและให้ข้อมูลที่ถูกต้อง ใช้ภาษาที่เป็นทางการแต่เป็นมิตร หลีกเลี่ยงการใช้คำว่า 'พี่/น้อง' ระบุเบอร์โทร 082 919 7199 เฉพาะเมื่อลูกค้าถามเรื่องการติดต่อโดยตรง ไม่ใช้ 'ค่ะ' ซ้อนกัน และตอบสั้นและกระชับเมื่อเป็นคำถามง่ายๆ เมื่อลูกค้าถามเกี่ยวกับตัวอย่างชุด ให้แจ้งว่าสามารถดูได้ที่ https://www.facebook.com/foreversiam และเมื่อถามเกี่ยวกับที่จอดรถ ให้แจ้งว่ามีที่จอดรถของสามย่านที่สามารถใช้บริการได้"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=500
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            logger.error(f"Error getting GPT response: {str(e)}", exc_info=True)
+            raise
+
+    def _store_interaction(self, user_id: str, message: str, response: str):
+        """Store customer interaction"""
+        try:
+        if user_id not in self.customer_data:
+            self.customer_data[user_id] = {
+                'leads': [],
+                    'interactions': [],
+                    'preferences': {}
+            }
+            
+            self.customer_data[user_id]['interactions'].append({
+            'timestamp': datetime.now().isoformat(),
+                'message': message,
+                'response': response
+        })
+        
+        # Save updated customer data
+        self._save_customer_data()
+        except Exception as e:
+            logger.error(f"Error storing interaction: {str(e)}", exc_info=True)
+            raise
+
+    def _save_customer_data(self):
+        """Save customer data to JSON file"""
+        try:
+            with open('data/customer_data.json', 'w', encoding='utf-8') as f:
+                json.dump(self.customer_data, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            logger.error(f"Error saving customer data: {str(e)}", exc_info=True)
+            raise
+
+    async def get_product_recommendations(self, user_id: str) -> List[Dict]:
+        """Get personalized product recommendations"""
+        try:
+            # Get user's interaction history
+            user_interactions = self.customer_data.get(user_id, {}).get('interactions', [])
+            
+            # For demo, return some default recommendations
+            return [
+                {
+                    "name": "ชุดราตรีคลาสสิค",
+                    "category": "evening_wear",
+                    "price_range": {"min": 15000, "max": 25000},
+                    "description": "ชุดราตรีสไตล์คลาสสิค เหมาะสำหรับงานแต่งงานและงานเลี้ยง"
+                },
+                {
+                    "name": "ชุดค็อกเทลโมเดิร์น",
+                    "category": "cocktail_dresses",
+                    "price_range": {"min": 8000, "max": 15000},
+                    "description": "ชุดค็อกเทลสไตล์โมเดิร์น เหมาะสำหรับงานเลี้ยงและงานธุรกิจ"
+                }
+            ]
+        except Exception as e:
+            logger.error(f"Error getting recommendations: {str(e)}", exc_info=True)
+            return []
