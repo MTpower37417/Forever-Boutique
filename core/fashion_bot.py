@@ -8,8 +8,8 @@ from telegram.ext import (
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from dotenv import load_dotenv
 
-from core.path_config import CONFIG_ENV
-from core.start_handler import start
+CONFIG_ENV = "config.env"
+# from core.start_handler import start
 from core.menu_handler import fashion_menu
 from core.customer_management import get_customer_profile, save_customer_profile
 from core.menu_ui import open_fashion_menu, back_to_settings, close_menu
